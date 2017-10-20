@@ -1,5 +1,29 @@
 import Data.Maybe
 
+
+-- Linked list
+data Node a = Empty | Value a (Node a) deriving (Show)
+
+traverse1 :: Node a -> [a]
+traverse1 Empty = []
+traverse1 (Value a next) = [a] ++ (traverse1 next)
+
+getHead :: Node a -> Maybe a
+getHead Empty = Nothing
+getHead (Value a _) = Just a
+
+getTail :: Node a -> Maybe a
+getTail Empty = Nothing
+getTail (Value a Empty) = Just a
+getTail (Value a next)  = getTail next
+
+getKth :: Int -> Node a -> Maybe a
+getKth 0 Empty = Nothing
+getKth 0 (Value a _) = Just a
+getKth k (Value a next) = getKth (k-1) next
+
+llist = Value 'A' (Value 'B' (Value 'C' (Value 'D' Empty)))
+
 -- Stack DS
 newtype Stack a = Stack [a] deriving Show
 emptySt :: Stack a
